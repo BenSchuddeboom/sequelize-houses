@@ -2,7 +2,7 @@ const express = require('express')
 const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
 
-const connectionString = process.eventNames.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres'
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres'
 const sequelize = new Sequelize(connectionString, {define: { timestamps: false }})
 const app = express()
 
@@ -17,7 +17,7 @@ const House = sequelize.define('house', {
 
 House.sync()
 
-const port = 4002
+const port = process.env.PORT
 app.listen(port, () => `Listening on port ${port}`)
 
 app.use(bodyParser.json())
